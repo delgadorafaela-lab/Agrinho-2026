@@ -1,0 +1,168 @@
+/* ==========================================================================
+   ESTILIZAÇÃO GERAL DO SITE
+   ========================================================================== */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #eef5ed; /* Verde bem clarinho de fundo */
+    color: #333333;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #1e4620; /* Verde escuro para o título principal */
+}
+
+header h1 {
+    margin-bottom: 5px;
+    font-size: 2.2rem;
+}
+
+header p {
+    margin-top: 0;
+    font-size: 1.1rem;
+    color: #555555;
+}
+
+/* ==========================================================================
+   CONTAINER DO SIMULADOR (A CAIXA BRANCA)
+   ========================================================================== */
+.simulador-container {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); /* Sombra suave para dar destaque */
+    padding: 30px;
+    max-width: 600px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* ==========================================================================
+   PAINEL DE STATUS (BARRAS DE PROGRESSO)
+   ========================================================================== */
+.status-painel {
+    margin-bottom: 25px;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+}
+
+.status-item {
+    margin-bottom: 18px;
+}
+
+.status-item:last-child {
+    margin-bottom: 0; /* Remove a margem do último item */
+}
+
+.status-label {
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between; /* Alinha o nome na esquerda e a % na direita */
+    margin-bottom: 6px;
+    font-size: 0.95rem;
+}
+
+/* Fundo cinza da barra */
+.barra-fundo {
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    height: 22px;
+    width: 100%;
+    overflow: hidden; /* Garante que as bordas da barra interna fiquem arredondadas */
+}
+
+/* Preenchimento colorido da barra */
+.barra-preenchimento {
+    height: 100%;
+    width: 50%; /* Começa em 50% conforme o JavaScript */
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* Animação suave ao mudar */
+}
+
+/* Cores específicas de cada barra */
+#solo-barra { background-color: #8b5a2b; }     /* Marrom Terra */
+#producao-barra { background-color: #2e7d32; } /* Verde Plantação */
+#ambiente-barra { background-color: #0288d1; } /* Azul Água/Ambiente */
+
+/* ==========================================================================
+   SEÇÃO DE DECISÕES (BOTÕES)
+   ========================================================================== */
+.decisoes-secao {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.decisao-bloco {
+    border-left: 4px solid #2e7d32; /* Linha verde charmosa do lado esquerdo */
+    padding-left: 15px;
+}
+
+.decisao-bloco h4 {
+    margin: 0 0 10px 0;
+    color: #2e7d32;
+    font-size: 1.1rem;
+}
+
+.botoes-grupo {
+    display: flex;
+    gap: 12px;
+}
+
+/* Estilo base dos Botões */
+button {
+    flex: 1;
+    padding: 12px 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+/* Efeito de clique no botão */
+button:active {
+    transform: scale(0.98);
+}
+
+/* Botão Verde (Sustentável) */
+.btn-sustentavel {
+    background-color: #a5d6a7;
+    color: #1b5e20;
+}
+
+.btn-sustentavel:hover {
+    background-color: #81c784;
+}
+
+/* Botão Laranja (Comum/Predatório) */
+.btn-comum {
+    background-color: #ffcc80;
+    color: #e65100;
+}
+
+.btn-comum:hover {
+    background-color: #ffb74d;
+}
+
+/* ==========================================================================
+   MENSAGEM DE FEEDBACK (MURAL DE AVISOS)
+   ========================================================================== */
+#feedback {
+    margin-top: 25px;
+    padding: 15px;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 0.95rem;
+    background-color: #f1f1f1;
+    border: 1px solid #dcdcdc;
+    transition: background-color 0.3s, color 0.3s;
+}

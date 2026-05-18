@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Agro Sustentável - Agrinho 2026</title>
+    <style>
+        /* Estilização Geral do Site */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eef5ed;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #1e4620;
+        }
+
+        /* Container do Simulador */
+        .simulador-container {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        /* Painel de Status (Barras de Progresso) */
+        .status-painel {
+            margin-bottom: 25px;
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .status-item {
+            margin-bottom: 15px;
+        }
+
+        .status-label {
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .barra-fundo {
+            background-color: #e0e0e0;
+            border-radius: 8px;
+            height: 20px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .barra-preenchimento {
+            height: 100%;
+            width: 50%; /* Começa na metade */
+            transition: width 0.5s ease;
+        }
+
+        /* Cores das Barras */
+        #solo-barra { background-color: #8b5a2b; }
+        #producao-barra { background-color: #2e7d32; }
+        #ambiente-barra { background-color: #0288d1; }
+
+        /* Seção de Decisões */
+        .decisoes-secao {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .decisao-bloco {
+            border-left: 4px solid #2e7d32;
+            padding-left: 15px;
+        }
+
+        .decisao-bloco h4 {
+            margin: 0 0 8px 0;
+            color: #2e7d32;
+        }
+
+        .botoes-grupo {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .btn-sustentavel {
+            background-color: #a5d6a7;
+            color: #1b5e20;
+        }
+
+        .btn-sustentavel:hover { background-color: #81c784; }
+
+        .btn-comum {
+            background-color: #ffcc80;
+            color: #e65100;
+        }
+
+        .btn-comum:hover { background-color: #ffb74d; }
+
+        /* Mensagem de Feedback */
+        #feedback {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Simulador Agro Sustentável</h1>
+        <p>Agrinho 2026: Equilíbrio entre Produção e Meio Ambiente</p>
+    </header>
+
+    <div class="simulador-container">
+        
+        <div class="status-painel">
+            <div class="status-item">
+                <div class="status-label"><span>Saúde do Solo:</span> <span id="solo-txt">50%</span></div>
+                <div class="barra-fundo"><div id="solo-barra" class="barra-preenchimento"></div></div>
+            </div>
+            
+            <div class="status-item">
+                <div class="status-label"><span>Produção de Alimentos:</span> <span id="producao-txt">50%</span></div>
+                <div class="barra-fundo"><div id="producao-barra" class="barra-preenchimento"></div></div>
+            </div>
+
+            <div class="status-item">
+                <div class="status-label"><span>Preservação Ambiental:</span> <span id="ambiente-txt">50%</span></div>
+                <div class="barra-fundo"><div id="ambiente-barra" class="barra-preenchimento"></div></div>
+            </div>
+        </div>
+
+        <div class="decisoes-secao">
+            
+            <div class="decisao-bloco">
+                <h4>1. Método de Plantio</h4>
+                <div class="botoes-grupo">
+                    <button class="btn-sustentavel" onclick="tomarDecisao('direto')">Plantio Direto (Tecnológico)</button>
+                    <button class="btn-comum" onclick="tomarDecisao('tradicional')">Arado Tradicional</button>
+                </div>
+            </div>
+
+            <div class="decisao-bloco">
+                <h4>2. Irrigação</h4>
+                <div class="botoes-grupo">
+                    <button class="btn-sustentavel" onclick="tomarDecisao('sensores')">Sensores IoT + Gotejamento</button>
+                    <button class="btn-comum" onclick="tomarDecisao('aspersao')">Aspersão Contínua</button>
+                </div>
+            </div>
+
+            <div class="decisao-bloco">
+                <h4>3. Controle de Pragas</h4>
+                <div class="botoes-grupo">
+                    <button class="btn-sustentavel" onclick="tomarDecisao('drone')">Drones + Controle Biológico</button>
+                    <button class="btn-comum" onclick="tomarDecisao('quimico')">Agrotóxico Geral</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="feedback">Tome suas decisões para equilibrar a fazenda!</div>
+
+    </div>
+
+    <script>
+        // Valores iniciais das barras (em porcentagem)
+        let solo = 50;
+        let producao = 50;
+        let ambiente = 50;
+
+        // Função que atualiza os elementos visuais na tela
+        function atualizarTela() {
+            // Garante que os valores fiquem entre 0 e 100
+            solo = Math.max(0, Math.min(100, solo));
+            producao = Math.max(0, Math.min(100, producao));
+            ambiente = Math.max(0, Math.min(100, ambiente));
+
+            // Atualiza o tamanho das barras de progresso
+            document.getElementById('solo-barra').style.width = solo + '%';
+            document.getElementById('producao-barra').style.width = producao + '%';
+            document.getElementById('ambiente-barra').style.width = ambiente + '%';
+
+            // Atualiza os textos de porcentagem
+            document.getElementById('solo-txt').innerText = solo + '%';
+            document.getElementById('producao-txt').innerText = producao + '%';
+            document.getElementById('ambiente-txt').innerText = ambiente + '%';
+
+            // Verifica se o jogador alcançou o equilíbrio perfeito
+            if (solo >= 70 && producao >= 70 && ambiente >= 70) {
+                document.getElementById('feedback').style.backgroundColor = "#d4edda";
+                document.getElementById('feedback').style.color = "#155724";
+                document.getElementById('feedback').innerText = "🏆 Incrível! Você alcançou o equilíbrio perfeito entre produção e sustentabilidade!";
+            }
+        }
+
+        // Função que processa os cliques nos botões
+        function tomarDecisao(tipo) {
+            let textoFeedback = "";
+
+            if (tipo === 'direto') {
+                solo += 20; ambiente += 10; producao += 5;
+                textoFeedback = "🌱 Plantio Direto protegeu o solo contra erosão e manteve a umidade!";
+            } else if (tipo === 'tradicional') {
+                solo -= 20; producao += 15; ambiente -= 10;
+                textoFeedback = "🚜 O arado acelerou o plantio, mas desgastou a estrutura da terra a longo prazo.";
+            } else if (tipo === 'sensores') {
+                ambiente += 20; solo += 5;
+                textoFeedback = "💧 Sensores detectaram a umidade exata e economizaram muita água!";
+            } else if (tipo === 'aspersao') {
+                ambiente -= 20; producao += 10;
+                textoFeedback = "💦 A irrigação por aspersão gastou água em excesso e gerou poças no solo.";
+            } else if (tipo === 'drone') {
+                ambiente += 25; solo += 10; producao += 10;
+                textoFeedback = "🛸 Drones mapearam as pragas e aplicaram o controle biológico cirurgicamente!";
+            } else if (tipo === 'quimico') {
+                ambiente -= 30; solo -= 15; producao += 20;
+                textoFeedback = "⚠️ Agrotóxicos químicos eliminaram as pragas rápido, mas afetaram o solo e a biodiversidade local.";
+            }
+
+            // Atualiza o texto do feedback
+            document.getElementById('feedback').style.backgroundColor = "#f1f1f1";
+            document.getElementById('feedback').style.color = "#333";
+            document.getElementById('feedback').innerText = textoFeedback;
+
+            // Roda a função para redesenhar as barras modificadas
+            atualizarTela();
+        }
+
+        // Executa uma vez no início para desenhar o estado inicial de 50%
+        atualizarTela();
+    </script>
+</body>
+</html>
